@@ -392,3 +392,6 @@ input,select,textarea{font-family:inherit;}
   .btn{width:100%;}
   .toolbar{grid-template-columns:1fr;}
 }
+
+[hidden] { display: none !important; }
+
