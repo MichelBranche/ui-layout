@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <script src="script.js" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UI Layout | Dashboard</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -27,14 +27,18 @@
   </header>
 
   <main class="container">
+
+    <!-- Toast (messaggi brevi) -->
+    <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
     <!-- HERO -->
     <section class="hero" id="overview">
       <div class="hero-left">
-        <span class="pill">HTML · CSS · Grid/Flex</span>
+        <span class="pill">HTML · CSS · JS (DOM)</span>
         <h1>Dashboard UI layout<br />pulito e riutilizzabile</h1>
         <p>
-          Un mock di interfaccia “prodotto” con griglia responsive, cards moderne,
-          tabella e form. Solo HTML/CSS, senza librerie.
+          Mock di interfaccia “prodotto” con griglia responsive, cards moderne,
+          tabella, form e micro-interazioni base.
         </p>
 
         <div class="actions">
@@ -118,7 +122,33 @@
         <section class="card">
           <div class="card-head">
             <h3>Latest orders</h3>
-            <a class="link" href="#" aria-label="View all orders">View all</a>
+            <a class="link" href="#" id="viewAll" aria-label="View all orders">View all</a>
+          </div>
+
+          <!-- Toolbar: search + status -->
+          <div class="toolbar" aria-label="Orders filters">
+            <label class="field">
+              <span class="field-label">Search</span>
+              <input
+                class="input"
+                id="ordersSearch"
+                type="search"
+                placeholder="Search by ID, customer, status…"
+                autocomplete="off"
+              />
+            </label>
+
+            <label class="field">
+              <span class="field-label">Status</span>
+              <select class="select" id="statusFilter">
+                <option value="all">All</option>
+                <option value="paid">Paid</option>
+                <option value="pending">Pending</option>
+                <option value="refund">Refund</option>
+              </select>
+            </label>
+
+            <button class="btn ghost small" type="button" id="clearFilters">Clear</button>
           </div>
 
           <div class="table-wrap">
@@ -131,30 +161,35 @@
                   <th>Totale</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
+              <tbody id="ordersTbody">
+                <tr data-status="paid">
                   <td>#1042</td>
                   <td>Hotel Aurora</td>
                   <td><span class="status ok">Paid</span></td>
                   <td>€249</td>
                 </tr>
-                <tr>
+                <tr data-status="pending">
                   <td>#1041</td>
                   <td>Studio Dentale</td>
                   <td><span class="status warn">Pending</span></td>
                   <td>€129</td>
                 </tr>
-                <tr>
+                <tr data-status="paid">
                   <td>#1040</td>
                   <td>Ristorante Nido</td>
                   <td><span class="status ok">Paid</span></td>
                   <td>€199</td>
                 </tr>
-                <tr>
+                <tr data-status="refund">
                   <td>#1039</td>
                   <td>Agency One</td>
                   <td><span class="status bad">Refund</span></td>
                   <td>€89</td>
+                </tr>
+
+                <!-- Riga “no results” (gestita da JS) -->
+                <tr id="noResultsRow" class="no-results" hidden>
+                  <td colspan="4">No results.</td>
                 </tr>
               </tbody>
             </table>
@@ -168,9 +203,9 @@
           </div>
 
           <div class="stack">
-            <button class="btn ghost wide" type="button">Create report</button>
-            <button class="btn ghost wide" type="button">Invite user</button>
-            <button class="btn primary wide" type="button">New project</button>
+            <button class="btn ghost wide" type="button" id="createReport">Create report</button>
+            <button class="btn ghost wide" type="button" id="inviteUser">Invite user</button>
+            <button class="btn primary wide" type="button" id="newProject">New project</button>
           </div>
 
           <div class="divider"></div>
@@ -178,8 +213,8 @@
           <div class="note">
             <strong>Nota</strong>
             <p class="muted">
-              Qui puoi aggiungere micro-interazioni con JavaScript (modali, filtri, etc.)
-              quando inizi DOM/eventi.
+              Micro-interazioni base (filtro tabella + modal) fatte in JavaScript.
+              Perfetto per mostrare DOM/eventi senza complicarsi troppo.
             </p>
           </div>
         </aside>
@@ -200,6 +235,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
@@ -208,6 +244,47 @@
       <a class="back back-footer" href="https://michelbranche.github.io/portfolio/">← Portfolio</a>
     </div>
   </footer>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden></div>
+
+  <div
+    class="modal"
+    id="projectModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+    hidden
+  >
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">New project</h3>
+        <button class="icon-btn" id="closeModal" type="button" aria-label="Close modal">✕</button>
+      </div>
+
+      <form id="projectForm" class="form">
+        <label class="field">
+          <span class="field-label">Project name</span>
+          <input class="input" id="projectName" type="text" placeholder="e.g. Client dashboard" required />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Description</span>
+          <textarea class="textarea" id="projectDesc" rows="4" placeholder="Short description..."></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn ghost" type="button" id="cancelModal">Cancel</button>
+          <button class="btn primary" type="submit">Create</button>
+        </div>
+      </form>
+
+      <p class="muted modal-note">
+        (Demo) In un progetto reale qui invieresti i dati a un backend o li salveresti.
+      </p>
+    </div>
+  </div>
 
 </body>
 </html>
