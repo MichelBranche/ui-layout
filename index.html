@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI Layout | Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#" aria-label="Home UI Layout">UI Layout</a>
+
+      <nav class="topnav" aria-label="Navigazione">
+        <a href="#overview">Overview</a>
+        <a href="#components">Components</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="back" href="https://michelbranche.github.io/portfolio/" aria-label="Torna al portfolio">
+        ← Portfolio
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero" id="overview">
+      <div class="hero-left">
+        <span class="pill">HTML · CSS · Grid/Flex</span>
+        <h1>Dashboard UI layout<br />pulito e riutilizzabile</h1>
+        <p>
+          Un mock di interfaccia “prodotto” con griglia responsive, cards moderne,
+          tabella e form. Solo HTML/CSS, senza librerie.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#components">Vedi componenti</a>
+          <a class="btn ghost" href="#contact">Contatto</a>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-label="Preview panel">
+        <div class="preview">
+          <div class="preview-top">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="preview-title">Overview</span>
+          </div>
+
+          <div class="preview-grid">
+            <div class="mini-card">
+              <span class="mini-k">Users</span>
+              <strong class="mini-v">1,284</strong>
+              <span class="mini-s">+6.2%</span>
+            </div>
+            <div class="mini-card">
+              <span class="mini-k">Revenue</span>
+              <strong class="mini-v">€4,920</strong>
+              <span class="mini-s">+3.1%</span>
+            </div>
+            <div class="mini-card">
+              <span class="mini-k">Orders</span>
+              <strong class="mini-v">312</strong>
+              <span class="mini-s">+2.4%</span>
+            </div>
+            <div class="mini-card">
+              <span class="mini-k">Tickets</span>
+              <strong class="mini-v">18</strong>
+              <span class="mini-s">-1</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- COMPONENTS -->
+    <section class="section" id="components">
+      <div class="section-head">
+        <h2>Components</h2>
+        <p>Cards, table e form: base perfetta per un gestionale / SaaS / dashboard.</p>
+      </div>
+
+      <!-- STATS -->
+      <div class="grid stats">
+        <article class="card">
+          <div class="card-head">
+            <h3>Active users</h3>
+            <span class="badge">Today</span>
+          </div>
+          <p class="big">1,284</p>
+          <p class="muted">Crescita stabile negli ultimi 7 giorni.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Revenue</h3>
+            <span class="badge">Week</span>
+          </div>
+          <p class="big">€4,920</p>
+          <p class="muted">Buona conversione sulle nuove iscrizioni.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Conversion</h3>
+            <span class="badge">30d</span>
+          </div>
+          <p class="big">3.8%</p>
+          <p class="muted">Ottimizzabile con CTA più chiare.</p>
+        </article>
+      </div>
+
+      <!-- TABLE + SIDE -->
+      <div class="grid two">
+        <section class="card">
+          <div class="card-head">
+            <h3>Latest orders</h3>
+            <a class="link" href="#" aria-label="View all orders">View all</a>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table" aria-label="Latest orders table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Stato</th>
+                  <th>Totale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#1042</td>
+                  <td>Hotel Aurora</td>
+                  <td><span class="status ok">Paid</span></td>
+                  <td>€249</td>
+                </tr>
+                <tr>
+                  <td>#1041</td>
+                  <td>Studio Dentale</td>
+                  <td><span class="status warn">Pending</span></td>
+                  <td>€129</td>
+                </tr>
+                <tr>
+                  <td>#1040</td>
+                  <td>Ristorante Nido</td>
+                  <td><span class="status ok">Paid</span></td>
+                  <td>€199</td>
+                </tr>
+                <tr>
+                  <td>#1039</td>
+                  <td>Agency One</td>
+                  <td><span class="status bad">Refund</span></td>
+                  <td>€89</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="card">
+          <div class="card-head">
+            <h3>Quick actions</h3>
+            <span class="badge">UI</span>
+          </div>
+
+          <div class="stack">
+            <button class="btn ghost wide" type="button">Create report</button>
+            <button class="btn ghost wide" type="button">Invite user</button>
+            <button class="btn primary wide" type="button">New project</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Nota</strong>
+            <p class="muted">
+              Qui puoi aggiungere micro-interazioni con JavaScript (modali, filtri, etc.)
+              quando inizi DOM/eventi.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="contact">
+        <div>
+          <h2>Contact</h2>
+          <p class="muted">Questo progetto fa parte del mio portfolio.</p>
+        </div>
+
+        <div class="contact-actions">
+          <a class="btn primary" href="mailto:michel.lavoro@gmail.com">Email</a>
+          <a class="btn ghost" href="https://github.com/MichelBranche">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 Michel Branche — UI Layout</p>
+      <a class="back back-footer" href="https://michelbranche.github.io/portfolio/">← Portfolio</a>
+    </div>
+  </footer>
+
+</body>
+</html>
